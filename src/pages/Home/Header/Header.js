@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <section className="py-3">
       <nav className="navbar max-w-[1240px] mx-auto px-4">
-        <Link className="flex justify-center items-center" to="/">
+        <Link className="flex justify-center items-center text-gray-700" to="/">
           <h2>Task Beaters</h2>
         </Link>
         <ul
@@ -26,9 +26,6 @@ const Header = () => {
         >
           <li>
             <Link to="/home">Home</Link>
-          </li>
-          <li>
-            <Link to="/tasks">Tasks</Link>
           </li>
           {user ? (
             <>
