@@ -75,7 +75,7 @@ const Register = () => {
               Sign in
             </Link>
           </p>
-          <button className="btn w-2/4 block mt-6 mx-auto bg-[#1ECCB0] hover:bg-[#19a68e] duration-200 outline-none border-none">
+          <button className="btn w-full block mt-6 mx-auto bg-[#1ECCB0] hover:bg-[#48edd2] duration-200 outline-none border-none">
             Submit
           </button>
         </form>

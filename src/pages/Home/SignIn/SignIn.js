@@ -1,11 +1,13 @@
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AUTH_CONTEXT } from "../../../context/AuthProvider";
 
 const SignIn = () => {
   const { logIn } = useContext(AUTH_CONTEXT);
   const [passwordError, setPasswordError] = useState("");
+  const navigate = useNavigate();
+
   const handleSignIn = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -34,6 +36,7 @@ const SignIn = () => {
         console.log(user);
         toast.success("Login Successful");
         e.target.reset();
+        navigate('/home');
       })
       .catch((error) => {
         console.log(error);
@@ -67,7 +70,7 @@ const SignIn = () => {
               Register
             </Link>
           </p>
-          <button className="btn w-2/4 block mt-6 mx-auto bg-[#1ECCB0] hover:bg-[#19a68e] duration-200 outline-none border-none">
+          <button className="btn w-full block mt-6 mx-auto bg-[#1ECCB0] hover:bg-[#48edd2] duration-200 outline-none border-none">
             Submit
           </button>
         </form>
