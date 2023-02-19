@@ -1,0 +1,58 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar h2 {
+  font-family: "Audiowide", cursive;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.nav-links {
+  display: flex;
+}
+
+.nav-links a {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 1.8px;
+  padding: 0 1.25rem;
+  text-transform: uppercase;
+}
+
+.toggle-btn {
+  display: none;
+}
+
+@media screen and (max-width: 900px) {
+  .nav-links {
+    display: none;
+  }
+
+  .nav-links-mobile {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    background-color: #fff;
+    width: 60%;
+    height: 100vh;
+    flex-direction: column;
+    transition: all 0.5s ease-in-out;
+    z-index: 1;
+    padding: 0 1rem;
+  }
+
+  .nav-links-mobile li {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    width: 100%;
+    border-bottom: 1px solid #000;
+  }
+
+  .toggle-btn {
+    display: block;
+  }
+}
