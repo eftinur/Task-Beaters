@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { AUTH_CONTEXT } from "../../../context/AuthProvider";
-import { useNavigate } from "react-router-dom";
-const AddTask = () => {
-  const { user } = useContext(AUTH_CONTEXT);
-  const [warning, setWarning] = useState("");
-  const navigate = useNavigate();
 
-  const handleAddingTask = (e) => {
+const UpdateTask = () => {
+  const data = useLoaderData();
+  const navigate = useNavigate();
+  const [warning, setWarning] = useState("");
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     const title = e.target.title.value;
     const description = e.target.description.value;
@@ -20,39 +20,44 @@ const AddTask = () => {
       return setWarning("Maximum 256 characters allowed");
     }
 
-    const newTask = {
-      email: user.email,
+    handleUpdate(title, description);
+  };
+
+  const handleUpdate = (title, description) => {
+    const updatedTask = {
       title: title,
       description: description,
     };
 
-    fetch("https://backend-xi-seven.vercel.app/tasks", {
-      method: "POST",
+    fetch(`https://backend-xi-seven.vercel.app/tasks/${data._id}`, {
+      method: "PUT",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(newTask),
-    });
-    toast.success("Task added successcully");
-    navigate('/');
+      body: JSON.stringify(updatedTask),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        toast.success("Task updated successfully");
+        navigate("/home");
+      });
   };
 
   return (
     <div className="max-w-[1240px] mx-auto px-4 flex justify-center">
       <div className="w-2/4">
-        <form
-          onSubmit={handleAddingTask}
-          className="mt-20 border rounded-xl p-4"
-        >
+        <form onSubmit={handleSubmit} className="mt-20 border rounded-xl p-4">
           <h3 className="text-center text-2xl font-medium">Add New Task</h3>
           <div className="flex flex-col">
             <input
+              defaultValue={data.title}
               name="title"
               type="text"
               placeholder="Enter task title"
               className="input input-bordered w-full mt-4"
             />
             <textarea
+              defaultValue={data.description}
               name="description"
               className="textarea textarea-bordered w-full mt-4 text-base"
               rows="8"
@@ -63,7 +68,7 @@ const AddTask = () => {
           <p className="text-red-600 mt-4">{warning}</p>
 
           <button className="btn w-full block mt-6 mx-auto bg-[#1ECCB0] hover:bg-[#48edd2] duration-200 outline-none border-none">
-            Create
+            Update
           </button>
         </form>
       </div>
@@ -71,4 +76,4 @@ const AddTask = () => {
   );
 };
 
-export default AddTask;
+export default UpdateTask;

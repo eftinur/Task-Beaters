@@ -1,20 +1,21 @@
-import React, { useContext, CSSProperties } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import TaskItem from "../../../component/TaskItem/TaskItem";
 import { AUTH_CONTEXT } from "../../../context/AuthProvider";
-import ScaleLoader from "react-spinners/ScaleLoader";
+import Loader from "../../../component/Loader/Loader";
 
 const Tasks = () => {
+  const [search, setSearch] = useState("");
   const { user } = useContext(AUTH_CONTEXT);
   const navigate = useNavigate();
+
   const handleNavigate = (route) => {
     navigate(`${route}`);
     route = "";
-    console.log(route);
   };
 
-  const url = `http://localhost:5000/tasks?email=${user?.email}`;
+  const url = `https://backend-xi-seven.vercel.app/tasks?email=${user?.email}`;
   const { data, isLoading } = useQuery({
     queryKey: ["user", user?.email],
     queryFn: async () => {
@@ -23,32 +24,16 @@ const Tasks = () => {
       return data;
     },
   });
-  console.log(data);
-
-  const override: CSSProperties = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    borderColor: "red",
-    color: "red",
-    height: "100vh"
-  };
 
   if (isLoading) {
-    return (
-      <ScaleLoader
-        cssOverride={override}
-        size={150}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
-    );
+    return <Loader />;
   }
 
   return (
     <div className="max-w-[1240px] mx-auto px-4">
       <div className="flex justify-between items-center">
         <input
+          onChange={(e) => setSearch(e.target.value)}
           name="search"
           type="text"
           placeholder="Search here"
@@ -75,19 +60,22 @@ const Tasks = () => {
         </div>
 
         <div className="w-[150px] flex justify-end">
-          <Link
-            to="/addtask"
-            className="btn bg-[#1ECCB0] hover:bg-[#48edd2] border-none"
-          >
+          <button className="btn bg-[#1ECCB0] hover:bg-[#48edd2] border-none">
             Delete All
-          </Link>
+          </button>
         </div>
       </div>
 
       <div className="grid grid-cols-4 my-12 gap-4">
-        {data?.map((task) => (
-          <TaskItem key={task._id} task={task} />
-        ))}
+        {data
+          .filter((task) => {
+            return search?.toLowerCase() === ""
+              ? task
+              : task.title.toLowerCase().includes(search);
+          })
+          ?.map((task) => (
+            <TaskItem key={task._id} task={task} />
+          ))}
       </div>
     </div>
   );

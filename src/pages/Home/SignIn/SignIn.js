@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AUTH_CONTEXT } from "../../../context/AuthProvider";
 
 const SignIn = () => {
@@ -8,20 +8,18 @@ const SignIn = () => {
   const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
 
+
   const handleSignIn = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
 
     if (!/(?=.*[A-Z])/.test(password)) {
       setPasswordError("Please provide at least 1 uppercase character");
-      console.log(passwordError);
       return;
     }
     if (!/(?=.*[a-z])/.test(password)) {
       setPasswordError("Please provide at least 1 lowercase character");
-      console.log(passwordError);
       return;
     }
     if (password.length < 6) {

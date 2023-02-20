@@ -12,16 +12,13 @@ const Register = () => {
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(name, email, password);
 
     if (!/(?=.*[A-Z])/.test(password)) {
       setPasswordError("Please provide at least 1 uppercase character");
-      console.log(passwordError);
       return;
     }
     if (!/(?=.*[a-z])/.test(password)) {
       setPasswordError("Please provide at least 1 lowercase character");
-      console.log(passwordError);
       return;
     }
     if (password.length < 6) {
@@ -38,7 +35,6 @@ const Register = () => {
         e.target.reset();
       })
       .catch((error) => {
-        console.log(error);
         setPasswordError(error.message);
       });
   };
