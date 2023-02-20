@@ -20,7 +20,7 @@ const DetailsCard = () => {
   }
 
   return (
-    <div className="max-w-[1240px] mx-auto px-4 my-12">
+    <div className="max-w-[1240px] min-h-screen mx-auto px-4 my-12">
       <div className="">
         <h3 className="text-2xl text-gray-700 font-medium capitalize my-4">
           {data.title}

@@ -30,7 +30,7 @@ const Tasks = () => {
   }
 
   return (
-    <div className="max-w-[1240px] mx-auto px-4">
+    <div className="max-w-[1240px] min-h-screen mx-auto px-4">
       <div className="flex justify-between items-center">
         <input
           onChange={(e) => setSearch(e.target.value)}

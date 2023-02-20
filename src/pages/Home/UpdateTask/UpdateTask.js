@@ -44,7 +44,7 @@ const UpdateTask = () => {
   };
 
   return (
-    <div className="max-w-[1240px] mx-auto px-4 flex justify-center">
+    <div className="max-w-[1240px] min-h-screen mx-auto px-4 flex justify-center">
       <div className="w-2/4">
         <form onSubmit={handleSubmit} className="mt-20 border rounded-xl p-4">
           <h3 className="text-center text-2xl font-medium">Add New Task</h3>

@@ -38,7 +38,7 @@ const AddTask = () => {
   };
 
   return (
-    <div className="max-w-[1240px] mx-auto px-4 flex justify-center">
+    <div className="max-w-[1240px] min-h-screen mx-auto px-4 flex justify-center">
       <div className="w-2/4">
         <form
           onSubmit={handleAddingTask}
