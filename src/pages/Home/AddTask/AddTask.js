@@ -7,7 +7,7 @@ const AddTask = () => {
   const [warning, setWarning] = useState("");
   const navigate = useNavigate();
 
-  const handleAddingTask = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const title = e.target.title.value;
     const description = e.target.description.value;
@@ -20,8 +20,12 @@ const AddTask = () => {
       return setWarning("Maximum 256 characters allowed");
     }
 
+    handleAddingTask(user?.email, title, description);
+  };
+
+  const handleAddingTask = (email, title, description) => {
     const newTask = {
-      email: user.email,
+      email: email,
       title: title,
       description: description,
     };
@@ -34,16 +38,13 @@ const AddTask = () => {
       body: JSON.stringify(newTask),
     });
     toast.success("Task added successcully");
-    navigate('/');
+    navigate("/home");
   };
 
   return (
     <div className="max-w-[1240px] min-h-screen mx-auto px-4 flex justify-center">
       <div className="w-2/4">
-        <form
-          onSubmit={handleAddingTask}
-          className="mt-20 border rounded-xl p-4"
-        >
+        <form onSubmit={handleSubmit} className="mt-20 border rounded-xl p-4">
           <h3 className="text-center text-2xl font-medium">Add New Task</h3>
           <div className="flex flex-col">
             <input

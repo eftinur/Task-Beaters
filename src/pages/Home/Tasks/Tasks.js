@@ -24,6 +24,7 @@ const Tasks = () => {
       return data;
     },
   });
+  console.log(data);
 
   if (isLoading) {
     return <Loader />;
@@ -32,17 +33,19 @@ const Tasks = () => {
   return (
     <div className="max-w-[1240px] min-h-screen mx-auto px-4">
       <div className="flex justify-between items-center">
-        <input
-          onChange={(e) => setSearch(e.target.value)}
-          name="search"
-          type="text"
-          placeholder="Search here"
-          className="input input-bordered w-[65%] mr-4"
-        />
+        <div className=" w-[70%] mr-4">
+          <input
+            onChange={(e) => setSearch(e.target.value)}
+            name="search"
+            type="text"
+            placeholder="Search here"
+            className="input input-bordered w-full"
+          />
+        </div>
         <div className="w-[150px]">
           <Link
             to="/addtask"
-            className="btn bg-[#1ECCB0] hover:bg-[#48edd2] border-none"
+            className="btn bg-[#1ECCB0] hover:bg-[#48edd2] border-none w-full"
           >
             Add Task
           </Link>
@@ -53,28 +56,22 @@ const Tasks = () => {
             onChange={(event) => handleNavigate(event.target.value)}
             className="select select-bordered font-medium"
           >
-            <option value="no filters">No Filters</option>
+            <option value="no filters">ALL Tasks</option>
             <option value="active">Active</option>
             <option value="completed">Completed</option>
           </select>
         </div>
-
-        <div className="w-[150px] flex justify-end">
-          <button className="btn bg-[#1ECCB0] hover:bg-[#48edd2] border-none">
-            Delete All
-          </button>
-        </div>
       </div>
 
-      <div className="grid grid-cols-4 my-12 gap-4">
+      <div className="grid grid-cols-1 my-12 gap-4">
         {data
           .filter((task) => {
             return search?.toLowerCase() === ""
               ? task
               : task.title.toLowerCase().includes(search);
           })
-          ?.map((task) => (
-            <TaskItem key={task._id} task={task} />
+          ?.map((task, i) => (
+            <TaskItem key={task._id} task={task} index={i} />
           ))}
       </div>
     </div>
